@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier",
+    "react-app"
+  ],
+  "plugins": [
+    "jsx-a11y",
+    "import",
+    "react"
+  ]
+}

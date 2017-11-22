@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.8.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
+    "flow-bin": "^0.59.0",
     "husky": "^0.14.3",
     "jest-expo": "^22.0.0",
     "lint-staged": "^5.0.0",
@@ -17,7 +25,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "format": "prettier --config ./.prettierrc --write \"src/**/*.js\""
+    "format": "prettier --config ./.prettierrc --write \"src/**/*.js\"",
+    "flow": "flow"
   },
   "jest": {
     "preset": "jest-expo"
@@ -29,6 +38,7 @@
   },
   "lint-staged": {
     "*.js": [
+      "npm run flow",
       "npm run format",
       "git add"
     ]
