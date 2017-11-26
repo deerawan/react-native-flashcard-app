@@ -1,12 +1,16 @@
 {
+  "parser": "babel-eslint",  
   "extends": [
     "airbnb",
     "prettier",
-    "react-app"
+    "flowtype"    
   ],
   "plugins": [
     "jsx-a11y",
-    "import",
-    "react"
-  ]
+    "import"    
+  ],
+  "rules": {
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  }
 }

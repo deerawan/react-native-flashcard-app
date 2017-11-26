@@ -1,23 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { primary } from './utils/colors';
+import reducer from './reducers';
+import DeckList from './components/DeckList';
+import AppStatusBar from './components/AppStatusBar';
+import thunk from 'redux-thunk';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
+
+const middlewares = [thunk];
+const store = createStore(reducer, applyMiddleware(...middlewares));
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AppStatusBar backgroundColor={primary} />
+          <DeckList />
+        </View>
+      </Provider>
+    );
+  }
+}
