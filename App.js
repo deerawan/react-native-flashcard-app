@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { primary, white } from './utils/colors';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import reducer from './reducers';
 import DeckList from './components/DeckList';
 import DeckDetail from './components/DeckDetail';
+import DeckNew from './components/DeckNew';
 import AppStatusBar from './components/AppStatusBar';
-import thunk from 'redux-thunk';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,9 +21,30 @@ const styles = StyleSheet.create({
 const middlewares = [thunk];
 const store = createStore(reducer, applyMiddleware(...middlewares));
 
+const Tabs = TabNavigator({
+  DeckList: {
+    screen: DeckList,
+    navigationOptions: {
+      tabBarLabel: 'Decks',
+      tabBarIcon: ({ tintColor }) => (
+        <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
+      ),
+    },
+  },
+  DeckNew: {
+    screen: DeckNew,
+    navigationOptions: {
+      tabBarLabel: 'Add Deck',
+      tabBarIcon: ({ tintColor }) => (
+        <FontAwesome name="plus-square" size={30} color={tintColor} />
+      ),
+    },
+  },
+});
+
 const MainNavigator = StackNavigator({
   Home: {
-    screen: DeckList,
+    screen: Tabs,
   },
   DeckDetail: {
     screen: DeckDetail,

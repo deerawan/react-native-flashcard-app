@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { AsyncStorage } from 'react-native';
 import { DECK_STORAGE_KEY } from './deck';
 
@@ -29,15 +30,29 @@ const initialDecks = {
 
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(decks => {
-    return decks || initialDecks;
+    return JSON.parse(decks) || initialDecks;
   });
 }
 
-export function getDeck(id: number) {
+export function getDeckById(id: string) {
   const decks = AsyncStorage.getItem(DECK_STORAGE_KEY);
   return decks.find(deck => deck.id === id);
 }
 
-export function saveDeckTitle(title: string) {}
+export function saveDeck(deckTitle) {
+  const newDeck = {
+    [_.capitalize(deckTitle)]: {
+      title: deckTitle,
+      questions: [],
+    },
+  };
+  return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(newDeck)).then(
+    () => newDeck
+  );
+}
 
 export function addCardToDeck(title: string, card) {}
+
+export function removeDecks() {
+  return AsyncStorage.removeItem(DECK_STORAGE_KEY);
+}

@@ -1,6 +1,8 @@
 import * as api from '../utils/api';
 
 export const FETCH_DECKS_SUCCESS = 'FETCH_DECKS_SUCCESS';
+export const FETCH_DECK_BY_ID_SUCCESS = 'FETCH_DECK_BY_ID_SUCCESS';
+export const SAVE_DECK_SUCCESS = 'SAVE_DECK_SUCCESS';
 
 export function fetchDecksSuccess(decks) {
   return {
@@ -9,8 +11,38 @@ export function fetchDecksSuccess(decks) {
   };
 }
 
+export function fetchDeckByIdSuccess(deck) {
+  return {
+    type: FETCH_DECK_BY_ID_SUCCESS,
+    deck,
+  };
+}
+
+export function saveDeckSuccess(deck) {
+  return {
+    type: SAVE_DECK_SUCCESS,
+    deck,
+  };
+}
+
 export function fetchDecks() {
   return dispatch => {
     return api.getDecks().then(decks => dispatch(fetchDecksSuccess(decks)));
+  };
+}
+
+export function fetchDeckById(deckId) {
+  return dispatch => {
+    return api
+      .getDeckById(deckId)
+      .then(deck => dispatch(fetchDeckByIdSuccess(deck)));
+  };
+}
+
+export function saveDeck(deckTitle: string) {
+  return dispatch => {
+    return api
+      .saveDeck(deckTitle)
+      .then(deck => dispatch(saveDeckSuccess(deck)));
   };
 }
