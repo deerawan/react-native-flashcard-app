@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  FlatList,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { connect } from 'react-redux';
 import DeckListItem from './DeckListItem';
 import { getDecks } from '../utils/api';
 import { fetchDecks } from '../actions/deck';
+import { getCardsCountLabel } from '../utils/deck';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+  },
+  deckLink: {
+    flex: 1,
   },
 });
 
@@ -18,17 +28,22 @@ class DeckList extends Component {
   }
 
   render() {
-    debugger;
     const { decks } = this.props;
     return (
       <View style={styles.container}>
         {decks.length > 0 &&
           decks.map(deck => (
-            <DeckListItem
+            <TouchableOpacity
               key={deck.id}
-              title={deck.title}
-              subTitle={deck.cardCount}
-            />
+              style={styles.deckLink}
+              onPress={() =>
+                this.props.navigation.navigate('DeckDetail', {
+                  deckId: deck.id,
+                })
+              }
+            >
+              <DeckListItem title={deck.title} subTitle={deck.cardCount} />
+            </TouchableOpacity>
           ))}
       </View>
     );
@@ -40,7 +55,7 @@ const mapStateToProps = ({ decks }) => {
     return {
       id: key,
       title: decks[key].title,
-      cardCount: `${decks[key].questions.length} cards`,
+      cardCount: getCardsCountLabel(decks[key]),
     };
   });
 
