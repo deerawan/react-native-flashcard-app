@@ -30,7 +30,11 @@ const initialDecks = {
 
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(decks => {
-    return JSON.parse(decks) || initialDecks;
+    if (decks === null) {
+      AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(initialDecks));
+      return initialDecks;
+    }
+    return JSON.parse(decks);
   });
 }
 
@@ -51,7 +55,22 @@ export function saveDeck(deckTitle) {
   );
 }
 
-export function addCardToDeck(title: string, card) {}
+export function addCardToDeck(title: string, card) {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY).then(decks => {
+    const data = JSON.parse(decks);
+    const updatedDeck = {
+      ...data[title],
+      questions: [...data[title].questions, card],
+    };
+    const updatedData = {
+      ...data,
+      [title]: updatedDeck,
+    };
+    AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(updatedData));
+
+    return updatedData;
+  });
+}
 
 export function removeDecks() {
   return AsyncStorage.removeItem(DECK_STORAGE_KEY);

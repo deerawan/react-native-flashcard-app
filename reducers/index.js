@@ -2,6 +2,7 @@ import {
   FETCH_DECKS_SUCCESS,
   FETCH_DECK_BY_ID_SUCCESS,
   SAVE_DECK_SUCCESS,
+  SAVE_CARD_SUCCESS,
 } from '../actions/deck';
 
 const initialState = {
@@ -30,6 +31,12 @@ export default function decks(state = initialState, action) {
           ...state.decks,
           ...action.deck,
         },
+      };
+    }
+    case SAVE_CARD_SUCCESS: {
+      return {
+        ...state,
+        decks: action.decks,
       };
     }
     default: {

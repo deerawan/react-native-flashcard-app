@@ -3,6 +3,7 @@ import * as api from '../utils/api';
 export const FETCH_DECKS_SUCCESS = 'FETCH_DECKS_SUCCESS';
 export const FETCH_DECK_BY_ID_SUCCESS = 'FETCH_DECK_BY_ID_SUCCESS';
 export const SAVE_DECK_SUCCESS = 'SAVE_DECK_SUCCESS';
+export const SAVE_CARD_SUCCESS = 'SAVE_CARD_SUCCESS';
 
 export function fetchDecksSuccess(decks) {
   return {
@@ -25,6 +26,13 @@ export function saveDeckSuccess(deck) {
   };
 }
 
+export function saveCardSuccess(decks) {
+  return {
+    type: SAVE_CARD_SUCCESS,
+    decks,
+  };
+}
+
 export function fetchDecks() {
   return dispatch => {
     return api.getDecks().then(decks => dispatch(fetchDecksSuccess(decks)));
@@ -44,5 +52,13 @@ export function saveDeck(deckTitle: string) {
     return api
       .saveDeck(deckTitle)
       .then(deck => dispatch(saveDeckSuccess(deck)));
+  };
+}
+
+export function saveCard(deckTitle: string, card) {
+  return dispatch => {
+    return api
+      .addCardToDeck(deckTitle, card)
+      .then(decks => dispatch(saveCardSuccess(decks)));
   };
 }

@@ -29,6 +29,7 @@ class DeckDetail extends Component {
     };
   };
   render() {
+    const { deckId } = this.props.navigation.state.params;
     const { deck, cardCount } = this.props;
     return (
       <View style={styles.container}>
@@ -37,9 +38,18 @@ class DeckDetail extends Component {
           <Text style={styles.subTitle}>{cardCount}</Text>
         </View>
         <View>
-          <TextButton style={{ marginBottom: 10 }}>Add Card</TextButton>
+          <TextButton
+            style={{ marginBottom: 10 }}
+            onPress={() =>
+              this.props.navigation.navigate('CardNew', {
+                deckId,
+              })
+            }
+          >
+            Add Card
+          </TextButton>
           <TextButton style={{ backgroundColor: secondary }}>
-            Start Quiz
+            Start Quiz ({cardCount})
           </TextButton>
         </View>
       </View>
