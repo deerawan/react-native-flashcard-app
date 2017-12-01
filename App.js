@@ -11,6 +11,7 @@ import DeckList from './components/DeckList';
 import DeckDetail from './components/DeckDetail';
 import DeckNew from './components/DeckNew';
 import CardNew from './components/CardNew';
+import Quiz from './components/Quiz';
 import AppStatusBar from './components/AppStatusBar';
 
 const styles = StyleSheet.create({
@@ -43,21 +44,29 @@ const Tabs = TabNavigator({
   },
 });
 
+const navigationOptions = {
+  navigationOptions: {
+    headerTintColor: white,
+    headerStyle: {
+      backgroundColor: primary,
+    },
+  },
+};
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
   DeckDetail: {
     screen: DeckDetail,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary,
-      },
-    },
+    ...navigationOptions,
   },
   CardNew: {
     screen: CardNew,
+    ...navigationOptions,
+  },
+  Quiz: {
+    screen: Quiz,
+    ...navigationOptions,
   },
 });
 

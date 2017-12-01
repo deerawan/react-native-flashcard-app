@@ -10,7 +10,11 @@ const AppStatusBar = (props: Props) => {
   const { backgroundColor, ...rest } = props;
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...rest} />
+      <StatusBar
+        backgroundColor={backgroundColor}
+        barStyle="light-content"
+        {...rest}
+      />
     </View>
   );
 };

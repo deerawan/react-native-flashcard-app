@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import * as t from 'tcomb-form-native';
 import { connect } from 'react-redux';
-import TextButton from './TextButton';
+import Button from './Button';
 import { saveCard } from '../actions/deck';
 
 const Form = t.form.Form;
@@ -52,7 +52,7 @@ class CardNew extends Component {
           value={this.state.value}
           onChange={this.onChange}
         />
-        <TextButton onPress={this.submit}>Save</TextButton>
+        <Button onPress={this.submit}>Save</Button>
       </View>
     );
   }

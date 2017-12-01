@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { getCardsCountLabel } from '../utils/deck';
-import TextButton from './TextButton';
+import Button from './Button';
 import { secondary } from '../utils/colors';
 
 const styles = StyleSheet.create({
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: 'bold',
+    marginBottom: 10,
   },
   subTitle: {
     fontSize: 20,
@@ -22,10 +23,9 @@ const styles = StyleSheet.create({
 });
 
 class DeckDetail extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const { deckId } = navigation.state.params;
+  static navigationOptions = () => {
     return {
-      title: deckId,
+      title: 'Deck Detail',
     };
   };
   render() {
@@ -38,7 +38,7 @@ class DeckDetail extends Component {
           <Text style={styles.subTitle}>{cardCount}</Text>
         </View>
         <View>
-          <TextButton
+          <Button
             style={{ marginBottom: 10 }}
             onPress={() =>
               this.props.navigation.navigate('CardNew', {
@@ -47,10 +47,17 @@ class DeckDetail extends Component {
             }
           >
             Add Card
-          </TextButton>
-          <TextButton style={{ backgroundColor: secondary }}>
-            Start Quiz ({cardCount})
-          </TextButton>
+          </Button>
+          <Button
+            color={secondary}
+            onPress={() =>
+              this.props.navigation.navigate('Quiz', {
+                deckId,
+              })
+            }
+          >
+            Start Quiz
+          </Button>
         </View>
       </View>
     );
@@ -67,4 +74,3 @@ const mapStateToProps = ({ decks }, { navigation }) => {
 };
 
 export default connect(mapStateToProps)(DeckDetail);
-// export default DeckDetail;
