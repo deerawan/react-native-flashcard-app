@@ -31,20 +31,22 @@ class DeckList extends Component {
     const { decks } = this.props;
     return (
       <View style={styles.container}>
-        {decks.length > 0 &&
-          decks.map(deck => (
+        <FlatList
+          data={decks}
+          renderItem={({ item }) => (
             <TouchableOpacity
-              key={deck.id}
+              key={item.id}
               style={styles.deckLink}
               onPress={() =>
                 this.props.navigation.navigate('DeckDetail', {
-                  deckId: deck.id,
+                  deckId: item.id,
                 })
               }
             >
-              <DeckListItem title={deck.title} subTitle={deck.cardCount} />
+              <DeckListItem title={item.title} subTitle={item.cardCount} />
             </TouchableOpacity>
-          ))}
+          )}
+        />
       </View>
     );
   }
@@ -54,6 +56,7 @@ const mapStateToProps = ({ decks }) => {
   const decksToDisplay = Object.keys(decks).map(key => {
     return {
       id: key,
+      key,
       title: decks[key].title,
       cardCount: getCardsCountLabel(decks[key]),
     };

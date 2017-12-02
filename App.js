@@ -29,10 +29,12 @@ const store = createStore(reducer, applyMiddleware(...middlewares));
 
 const TabsConfig =
   Platform.OS === 'ios'
-    ? {}
+    ? {
+        tabBarOptions: {
+          activeTintColor: primary,
+        },
+      }
     : {
-        tabBarPosition: 'top',
-        animationEnabled: true,
         tabBarOptions: {
           activeTintColor: white,
           style: {
@@ -49,11 +51,11 @@ const Tabs = TabNavigator(
       screen: DeckList,
       navigationOptions: {
         tabBarLabel: 'Decks',
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({ tintColor, focused }) => (
           <MaterialCommunityIcons
             name="cards-outline"
             size={30}
-            color={tintColor}
+            color={focused ? primary : tintColor}
           />
         ),
       },
@@ -62,8 +64,12 @@ const Tabs = TabNavigator(
       screen: DeckNew,
       navigationOptions: {
         tabBarLabel: 'Add Deck',
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="ios-add" size={30} color={tintColor} />
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name="ios-add"
+            size={30}
+            color={focused ? primary : tintColor}
+          />
         ),
       },
     },

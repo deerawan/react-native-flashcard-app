@@ -40,8 +40,7 @@ class CardNew extends Component {
     this.toDeckDetail();
   };
   toDeckDetail = () => {
-    const { deckId } = this.props.navigation.state.params;
-    this.props.navigation.navigate('DeckDetail', { deckId });
+    this.props.navigation.goBack();
   };
   render() {
     return (
