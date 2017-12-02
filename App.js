@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import { primary, white } from './utils/colors';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { primary, white, secondary } from './utils/colors';
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
 import reducer from './reducers';
 import DeckList from './components/DeckList';
 import DeckDetail from './components/DeckDetail';
@@ -23,50 +27,75 @@ const styles = StyleSheet.create({
 const middlewares = [thunk];
 const store = createStore(reducer, applyMiddleware(...middlewares));
 
-const Tabs = TabNavigator({
-  DeckList: {
-    screen: DeckList,
-    navigationOptions: {
-      tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
-      ),
+const TabsConfig =
+  Platform.OS === 'ios'
+    ? {}
+    : {
+        tabBarPosition: 'top',
+        animationEnabled: true,
+        tabBarOptions: {
+          activeTintColor: white,
+          style: {
+            backgroundColor: primary,
+          },
+          indicatorStyle: {
+            backgroundColor: secondary,
+          },
+        },
+      };
+const Tabs = TabNavigator(
+  {
+    DeckList: {
+      screen: DeckList,
+      navigationOptions: {
+        tabBarLabel: 'Decks',
+        tabBarIcon: ({ tintColor }) => (
+          <MaterialCommunityIcons
+            name="cards-outline"
+            size={30}
+            color={tintColor}
+          />
+        ),
+      },
+    },
+    DeckNew: {
+      screen: DeckNew,
+      navigationOptions: {
+        tabBarLabel: 'Add Deck',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="ios-add" size={30} color={tintColor} />
+        ),
+      },
     },
   },
-  DeckNew: {
-    screen: DeckNew,
-    navigationOptions: {
-      tabBarLabel: 'Add Deck',
-      tabBarIcon: ({ tintColor }) => (
-        <FontAwesome name="plus-square" size={30} color={tintColor} />
-      ),
-    },
-  },
-});
+  TabsConfig
+);
 
 const navigationOptions = {
-  navigationOptions: {
-    headerTintColor: white,
-    headerStyle: {
-      backgroundColor: primary,
-    },
+  headerTintColor: white,
+  headerStyle: {
+    backgroundColor: primary,
   },
 };
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
+    navigationOptions: {
+      ...navigationOptions,
+      title: 'Home',
+    },
   },
   DeckDetail: {
     screen: DeckDetail,
-    ...navigationOptions,
+    navigationOptions,
   },
   CardNew: {
     screen: CardNew,
-    ...navigationOptions,
+    navigationOptions,
   },
   Quiz: {
     screen: Quiz,
-    ...navigationOptions,
+    navigationOptions,
   },
 });
 

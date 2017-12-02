@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 class CardNew extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Add new card',
+      title: 'Add card',
     };
   };
   state = {
