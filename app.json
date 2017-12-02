@@ -1,5 +1,20 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
-  }
+    "sdkVersion": "22.0.0",
+    "orientation": "portrait",
+    "name": "Flashcarding",
+    "description": "The flash card app.",
+    "slug": "Flashcarding",
+    "version": "1.0.0",
+    "icon": "https://raw.githubusercontent.com/deerawan/react-native-flashcard-app/master/app.png",
+    "notification": {
+      "icon": "https://raw.githubusercontent.com/deerawan/react-native-flashcard-app/master/app.png"
+    },
+    "ios": {
+     "bundleIdentifier": "org.flashcarding.exp",
+    },
+    "android": {
+     "package": "org.flashcarding.exp",
+    }
+  },
 }

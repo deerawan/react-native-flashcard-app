@@ -1,7 +1,7 @@
 import { Notifications, Permissions } from 'expo';
 import { AsyncStorage } from 'react-native';
 
-const NOTIFICATION_KEY = 'Decklicious:notifications';
+const NOTIFICATION_KEY = 'Flashcarding:notifications';
 
 export function clearLocalNotification() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY).then(

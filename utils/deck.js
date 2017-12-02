@@ -1,4 +1,4 @@
-export const DECK_STORAGE_KEY = 'flashcard:decks';
+export const DECK_STORAGE_KEY = 'Flashcarding:decks';
 
 export function getCardsCountLabel(deck) {
   const count = deck && deck.questions ? deck.questions.length : 0;
