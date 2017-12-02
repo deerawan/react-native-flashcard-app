@@ -17,6 +17,9 @@ yarn install
 ```
 it will install all library dependencies for this project.
 
+## Demo
+https://expo.io/@deerawan/Flashcarding
+
 ## Development
 Run command below to start development
 ```
