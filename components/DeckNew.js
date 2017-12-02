@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import * as t from 'tcomb-form-native';
+import { connect } from 'react-redux';
 import Button from './Button';
 import { saveDeck } from '../actions/deck';
-import { connect } from 'react-redux';
 
-const Form = t.form.Form;
+const { Form } = t.form;
 const Deck = t.struct({
   title: t.String,
 });
@@ -16,12 +16,15 @@ const styles = StyleSheet.create({
   },
 });
 
-class DeckNew extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Add new deck',
-    };
-  };
+type Props = {
+  saveDeck: Function,
+  navigation: any,
+};
+
+class DeckNew extends Component<Props> {
+  static navigationOptions = () => ({
+    title: 'Add new deck',
+  });
   state = {
     value: null,
   };

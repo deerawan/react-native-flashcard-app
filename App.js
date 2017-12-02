@@ -4,12 +4,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { primary, white, secondary } from './utils/colors';
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
 import reducer from './reducers';
 import DeckList from './components/DeckList';
 import DeckDetail from './components/DeckDetail';

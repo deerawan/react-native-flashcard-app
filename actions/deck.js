@@ -34,31 +34,23 @@ export function saveCardSuccess(deck) {
 }
 
 export function fetchDecks() {
-  return dispatch => {
-    return api.getDecks().then(decks => dispatch(fetchDecksSuccess(decks)));
-  };
+  return dispatch =>
+    api.getDecks().then(decks => dispatch(fetchDecksSuccess(decks)));
 }
 
 export function fetchDeckById(deckId: string) {
-  return dispatch => {
-    return api
-      .getDeckById(deckId)
-      .then(deck => dispatch(fetchDeckByIdSuccess(deck)));
-  };
+  return dispatch =>
+    api.getDeckById(deckId).then(deck => dispatch(fetchDeckByIdSuccess(deck)));
 }
 
 export function saveDeck(deckTitle: string) {
-  return dispatch => {
-    return api
-      .saveDeck(deckTitle)
-      .then(deck => dispatch(saveDeckSuccess(deck)));
-  };
+  return dispatch =>
+    api.saveDeck(deckTitle).then(deck => dispatch(saveDeckSuccess(deck)));
 }
 
 export function saveCard(deckTitle: string, card) {
-  return dispatch => {
-    return api
+  return dispatch =>
+    api
       .addCardToDeck(deckTitle, card)
       .then(deck => dispatch(saveCardSuccess(deck)));
-  };
 }

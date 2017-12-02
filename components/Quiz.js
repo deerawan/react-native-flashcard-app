@@ -6,6 +6,7 @@ import { primary, secondary, darkSlateGrey } from '../utils/colors';
 import { getScoreFeedback } from '../utils/quiz';
 import TextButton from './TextButton';
 import Button from './Button';
+import type { Question } from '../utils/definition';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,12 +47,15 @@ const styles = StyleSheet.create({
   },
 });
 
-class Quiz extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Quiz',
-    };
-  };
+type Props = {
+  questions: Question[],
+  navigation: any
+};
+
+class Quiz extends Component<Props> {
+  static navigationOptions = () => ({
+    title: 'Quiz',
+  });
   state = {
     questionIndex: 0,
     correctCount: 0,

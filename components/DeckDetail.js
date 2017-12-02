@@ -28,12 +28,17 @@ const styles = StyleSheet.create({
   },
 });
 
-class DeckDetail extends Component {
-  static navigationOptions = () => {
-    return {
-      title: 'Deck Detail',
-    };
-  };
+type Props = {
+  fetchDeckById: Function,
+  deck: any,
+  cardCountLabel: string,
+  navigation: any,
+};
+
+class DeckDetail extends Component<Props> {
+  static navigationOptions = () => ({
+    title: 'Deck Detail',
+  });
   componentDidMount() {
     const { deckId } = this.props.navigation.state.params;
     this.props.fetchDeckById(deckId);
@@ -74,13 +79,11 @@ class DeckDetail extends Component {
           >
             Add Card
           </Button>
-          <Button
-            disabled={deck.questions.length === 0}
-            color={secondary}
-            onPress={() => this.startQuiz(deckId)}
-          >
-            Start Quiz
-          </Button>
+          {deck.questions.length > 0 && (
+            <Button color={secondary} onPress={() => this.startQuiz(deckId)}>
+              Start Quiz
+            </Button>
+          )}
         </View>
       </View>
     );

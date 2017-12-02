@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import { primary, white, grey } from '../utils/colors';
+import { primary, white } from '../utils/colors';
 
 const styles = StyleSheet.create({
   button: {
@@ -12,13 +12,21 @@ const styles = StyleSheet.create({
   },
 });
 
+type Props = {
+  onPress: Function,
+  children: any,
+  disabled: boolean,
+  color: string,
+  style: any,
+};
+
 const Button = ({
   onPress,
   children,
   disabled = false,
   color = primary,
   style = {},
-}) => {
+}: Props) => {
   const btnStyle =
     Platform.OS === 'ios'
       ? { borderColor: color, borderWidth: 2 }

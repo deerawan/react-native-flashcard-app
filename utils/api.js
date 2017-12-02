@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { AsyncStorage } from 'react-native';
 import { DECK_STORAGE_KEY } from './deck';
 
@@ -31,8 +30,10 @@ const initialDecks = {
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(decks => {
     if (decks === null) {
-      AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(initialDecks));
-      return initialDecks;
+      return AsyncStorage.setItem(
+        DECK_STORAGE_KEY,
+        JSON.stringify(initialDecks)
+      ).then(() => initialDecks);
     }
     return JSON.parse(decks);
   });
