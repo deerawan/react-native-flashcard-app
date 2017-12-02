@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import PercentageCircle from 'react-native-percentage-circle';
@@ -22,12 +23,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scorePercentage: {
-    paddingTop: 20,
     alignItems: 'center',
   },
   scoreFeedback: {
-    textAlign: 'center',
     marginTop: 15,
+    textAlign: 'center',
+  },
+  scoreCorrect: {
+    marginBottom: 15,
   },
   questionNo: {
     fontSize: 15,
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
 
 type Props = {
   questions: Question[],
-  navigation: any
+  navigation: any,
 };
 
 class Quiz extends Component<Props> {
@@ -117,7 +120,7 @@ class Quiz extends Component<Props> {
     const questionNo = questionIndex + 1;
 
     if (showResult) {
-      const scorePercentage = correctCount / totalQuestion * 100;
+      const scorePercentage = _.round(correctCount / totalQuestion * 100, 2);
       const scoreFeedback = getScoreFeedback(scorePercentage);
       return (
         <View style={styles.container}>
@@ -125,6 +128,9 @@ class Quiz extends Component<Props> {
             <Text style={styles.question}>Quiz Score</Text>
           </View>
           <View style={styles.scorePercentage}>
+            <Text style={styles.scoreCorrect}>
+              {`${correctCount} out of ${totalQuestion} questions are correct`}
+            </Text>
             <PercentageCircle
               radius={100}
               percent={scorePercentage}
