@@ -34,9 +34,14 @@ export default function decks(state = initialState, action) {
       };
     }
     case SAVE_CARD_SUCCESS: {
+      const updatedDeck = action.deck;
       return {
         ...state,
-        decks: action.decks,
+        decks: {
+          ...state.decks,
+          [updatedDeck.title]: updatedDeck,
+        },
+        selectedDeck: updatedDeck,
       };
     }
     default: {

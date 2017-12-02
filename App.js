@@ -17,6 +17,7 @@ import DeckNew from './components/DeckNew';
 import CardNew from './components/CardNew';
 import Quiz from './components/Quiz';
 import AppStatusBar from './components/AppStatusBar';
+import { setLocalNotification } from './utils/notification';
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +107,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

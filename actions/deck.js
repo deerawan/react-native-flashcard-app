@@ -26,10 +26,10 @@ export function saveDeckSuccess(deck) {
   };
 }
 
-export function saveCardSuccess(decks) {
+export function saveCardSuccess(deck) {
   return {
     type: SAVE_CARD_SUCCESS,
-    decks,
+    deck,
   };
 }
 
@@ -39,7 +39,7 @@ export function fetchDecks() {
   };
 }
 
-export function fetchDeckById(deckId) {
+export function fetchDeckById(deckId: string) {
   return dispatch => {
     return api
       .getDeckById(deckId)
@@ -59,6 +59,6 @@ export function saveCard(deckTitle: string, card) {
   return dispatch => {
     return api
       .addCardToDeck(deckTitle, card)
-      .then(decks => dispatch(saveCardSuccess(decks)));
+      .then(deck => dispatch(saveCardSuccess(deck)));
   };
 }

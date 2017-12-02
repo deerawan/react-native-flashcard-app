@@ -38,14 +38,16 @@ export function getDecks() {
   });
 }
 
-export function getDeckById(id: string) {
-  const decks = AsyncStorage.getItem(DECK_STORAGE_KEY);
-  return decks.find(deck => deck.id === id);
+export function getDeckById(deckId: string) {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY).then(data => {
+    const decks = JSON.parse(data);
+    return decks[deckId];
+  });
 }
 
-export function saveDeck(deckTitle) {
+export function saveDeck(deckTitle: string) {
   const newDeck = {
-    [_.capitalize(deckTitle)]: {
+    [deckTitle]: {
       title: deckTitle,
       questions: [],
     },
@@ -68,7 +70,7 @@ export function addCardToDeck(title: string, card) {
     };
     AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(updatedData));
 
-    return updatedData;
+    return updatedDeck;
   });
 }
 

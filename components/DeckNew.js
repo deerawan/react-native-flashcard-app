@@ -33,12 +33,13 @@ class DeckNew extends Component {
   };
   submit = () => {
     const value = this.refs.form.getValue();
-    this.props.saveDeck(value.title);
-    this.clearForm();
-    this.toHome();
+    this.props.saveDeck(value.title).then(() => {
+      this.clearForm();
+      this.toHome(value.title);
+    });
   };
-  toHome = () => {
-    this.props.navigation.navigate('DeckList');
+  toHome = (deckTitle: string) => {
+    this.props.navigation.navigate('DeckDetail', { deckId: deckTitle });
   };
   render() {
     return (

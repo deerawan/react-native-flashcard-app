@@ -81,6 +81,7 @@ class Quiz extends Component {
     this.setState(state => {
       const { questionIndex } = state;
       const nextQuestionIndex = this.getNewQuestionIndex(questionIndex);
+
       return {
         questionIndex: nextQuestionIndex,
         showResult: this.shouldDisplayResult(nextQuestionIndex),
@@ -110,7 +111,6 @@ class Quiz extends Component {
       correctCount,
     } = this.state;
     const questionNo = questionIndex + 1;
-    debugger;
 
     if (showResult) {
       const scorePercentage = correctCount / totalQuestion * 100;
@@ -118,17 +118,17 @@ class Quiz extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.scoreResult}>
-            <Text style={styles.question}>Your Score</Text>
-            <View style={styles.scorePercentage}>
-              <PercentageCircle
-                radius={100}
-                percent={scorePercentage}
-                color={primary}
-                borderWidth={5}
-                textStyle={{ fontSize: 24, color: primary }}
-              />
-              <Text style={styles.scoreFeedback}>{scoreFeedback}</Text>
-            </View>
+            <Text style={styles.question}>Quiz Score</Text>
+          </View>
+          <View style={styles.scorePercentage}>
+            <PercentageCircle
+              radius={100}
+              percent={scorePercentage}
+              color={primary}
+              borderWidth={5}
+              textStyle={{ fontSize: 24, color: primary }}
+            />
+            <Text style={styles.scoreFeedback}>{scoreFeedback}</Text>
           </View>
           <View>
             <Button onPress={this.restartQuiz}>Restart Quiz</Button>
@@ -147,9 +147,9 @@ class Quiz extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.questionNo}>{`${questionNo} / ${
-            totalQuestion
-          }`}</Text>
+          <Text style={styles.questionNo}>
+            {`${questionNo} / ${totalQuestion}`}
+          </Text>
         </View>
         {showQuestion ? (
           <View>
